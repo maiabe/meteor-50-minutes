@@ -3,6 +3,8 @@ Tasks = new Mongo.Collection('tasks');
 
 
 if (Meteor.isClient) {
+    Meteor.subscribe('tasks');
+
 
     Template.tasks.helpers({
       tasks: function () {
@@ -34,6 +36,9 @@ if (Meteor.isClient) {
 
 if (Meteor.isServer) {
 
+  Meteor.publish('tasks', function () {
+    return Tasks.find({userId: this.userId});
+  });
 }
 
 
